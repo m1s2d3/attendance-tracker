@@ -25,5 +25,6 @@ export function getDistanceFromOffice(lat1, lon1) {
    * Check if current location is within office radius
    */
   export function isInOfficeRadius(lat, lon) {
+    alert("Distance from office:", getDistanceFromOffice(lat, lon));
     return getDistanceFromOffice(lat, lon) <= OFFICE_LOCATION.radiusMeters;
   }

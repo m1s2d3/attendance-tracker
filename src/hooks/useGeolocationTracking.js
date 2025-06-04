@@ -16,6 +16,7 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
       const { latitude, longitude } = position.coords;
 
       if (isInOfficeRadius(latitude, longitude)) {
+        alert('I have reached office');
         const today = new Date().toDateString();
 
         if (!lastCheckInRef.current || lastCheckInRef.current !== today) {
