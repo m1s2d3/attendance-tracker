@@ -8,6 +8,7 @@ import CalendarModal from "./components/modals/CalendarModal";
 import ExportModal from "./components/modals/ExportModal";
 import TimeModal from "./components/modals/TimeModal";
 import DeleteModal from "./components/modals/DeleteModal";
+import SettingsModal from "./components/modals/SettingsModal";
 import DuplicateModal from "./components/modals/DuplicateModal";
 import TimePicker from "./components/TimePicker";
 import useGeolocationTracking from "./hooks/useGeolocationTracking";
@@ -21,12 +22,11 @@ export default function App() {
     const savedData = localStorage.getItem("attendanceHistory");
     return savedData ? JSON.parse(savedData) : [];
   });
-
   const [autoAttendanceEnabled, setAutoAttendanceEnabled] = useState(() => {
     const saved = localStorage.getItem("autoAttendanceEnabled");
     return saved ? JSON.parse(saved) : false;
   });
-
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarMonth, setCalendarMonth] = useState(new Date().getMonth());
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear());
@@ -42,10 +42,22 @@ export default function App() {
   });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [recordToDeleteIndex, setRecordToDeleteIndex] = useState(null);
-
   const [notification, setNotification] = useState(null);
 
-  // Save auto attendance to localStorage
+  // Existing states ke nichese upar wala line daalna padega
+const [officeLocation, setOfficeLocation] = useState(() => {
+  const savedLat = localStorage.getItem("officeLat");
+  const savedLng = localStorage.getItem("officeLng");
+  const savedRadius = localStorage.getItem("officeRadius");
+
+  return {
+    latitude: savedLat ? parseFloat(savedLat) : 28.6734,
+    longitude: savedLng ? parseFloat(savedLng) : 77.4147,
+    radiusMeters: savedRadius ? parseInt(savedRadius) : 500
+  };
+});
+
+  // Save auto attendance state to localStorage
   useEffect(() => {
     localStorage.setItem("autoAttendanceEnabled", JSON.stringify(autoAttendanceEnabled));
   }, [autoAttendanceEnabled]);
@@ -105,6 +117,7 @@ export default function App() {
       closeCalendar();
       return;
     }
+
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
@@ -112,6 +125,7 @@ export default function App() {
     const hour12 = hours % 12 || 12;
     const formattedMin = minutes < 10 ? `0${minutes}` : minutes;
     const currentTime = `${hour12}:${formattedMin} ${period}`;
+
     setShowTimeModal(true);
     setTimeInput({
       type: "checkIn",
@@ -125,6 +139,7 @@ export default function App() {
   // Save time input
   const saveTime = () => {
     const { type, index, date } = timeInput;
+
     if (type === "checkIn") {
       const now = new Date();
       const hours = now.getHours();
@@ -146,13 +161,16 @@ export default function App() {
       const [checkOutHour, checkOutMinute] = parseTime(timeInput.checkOut);
       let totalHours = checkOutHour - checkInHour;
       let totalMinutes = checkOutMinute - checkInMinute;
+
       if (totalMinutes < 0) {
         totalHours--;
         totalMinutes += 60;
       }
+
       const formattedTotalHours = `${totalHours} hr${
         totalHours !== 1 ? "s" : ""
       } ${totalMinutes} min`;
+
       const updatedHistory = [...attendanceHistory];
       updatedHistory[index].checkOut = timeInput.checkOut;
       updatedHistory[index].totalHours = formattedTotalHours;
@@ -162,34 +180,43 @@ export default function App() {
       updatedHistory[index].checkIn = timeInput.checkIn;
       const [checkInHour, checkInMinute] = parseTime(timeInput.checkIn);
       const [checkOutHour, checkOutMinute] = parseTime(updatedHistory[index].checkOut);
+
       let totalHours = checkOutHour - checkInHour;
       let totalMinutes = checkOutMinute - checkInMinute;
+
       if (totalMinutes < 0) {
         totalHours--;
         totalMinutes += 60;
       }
+
       updatedHistory[index].totalHours =
         checkOutHour > 0
           ? `${totalHours} hr${totalHours !== 1 ? "s" : ""} ${totalMinutes} min`
           : "-";
+
       setAttendanceHistory(updatedHistory);
     } else if (type === "editCheckOut" && index !== null) {
       const updatedHistory = [...attendanceHistory];
       updatedHistory[index].checkOut = timeInput.checkOut;
       const [checkInHour, checkInMinute] = parseTime(updatedHistory[index].checkIn);
       const [checkOutHour, checkOutMinute] = parseTime(timeInput.checkOut);
+
       let totalHours = checkOutHour - checkInHour;
       let totalMinutes = checkOutMinute - checkInMinute;
+
       if (totalMinutes < 0) {
         totalHours--;
         totalMinutes += 60;
       }
+
       updatedHistory[index].totalHours =
         checkOutHour > 0
           ? `${totalHours} hr${totalHours !== 1 ? "s" : ""} ${totalMinutes} min`
           : "-";
+
       setAttendanceHistory(updatedHistory);
     }
+
     setShowTimeModal(false);
     setTimeInput({ type: "", index: null, date: "", checkIn: "", checkOut: "" });
   };
@@ -226,7 +253,6 @@ export default function App() {
   };
 
   const deleteRecord = () => {
-    setAutoAttendanceEnabled(false);
     const updatedHistory = [...attendanceHistory];
     updatedHistory.splice(recordToDeleteIndex, 1);
     setAttendanceHistory(updatedHistory);
@@ -279,14 +305,12 @@ export default function App() {
 
   const pmPunchCount = filteredHistory.length - amPunchCount;
 
-  // Auto Check-in/Check-out Handlers
+  // Auto Check-in Function
   const handleCheckIn = () => {
-    const today = new Date().toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric"
-    });
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.toLocaleString("default", { month: "short" });
+    const today = `${day} ${month}`
 
     const exists = attendanceHistory.some(record => record.date === today);
     if (!exists) {
@@ -310,12 +334,11 @@ export default function App() {
     }
   };
 
+  // Auto Check-out Function
   const autoCheckOut = () => {
     const today = new Date().toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric"
+      day: "numeric",
+      month: "short"
     });
 
     const recordIndex = attendanceHistory.findIndex(
@@ -362,9 +385,10 @@ export default function App() {
 
   // Use geolocation tracking
   useGeolocationTracking({
-    isAutoAttendanceEnabled: autoAttendanceEnabled,
+    isAutoAttendanceEnabled: autoAttendanceEnabled && page === "dashboard",
     handleCheckIn,
-    handleCheckOut:autoCheckOut
+    handleCheckOut: autoCheckOut,
+    officeLocation
   });
 
   return (
@@ -383,6 +407,8 @@ export default function App() {
         setShowExportModal={setShowExportModal}
         autoAttendanceEnabled={autoAttendanceEnabled}
         setAutoAttendanceEnabled={setAutoAttendanceEnabled}
+        setShowSettingsModal={setShowSettingsModal}
+        officeLocation={officeLocation}
        />}
       {page === "monthly" && <MonthlyPage 
         calendarMonth={calendarMonth}
@@ -444,12 +470,19 @@ export default function App() {
       {showDuplicate && <DuplicateModal 
         setShowDuplicate={setShowDuplicate}
       />}
-
+      {showSettingsModal && (
+        <SettingsModal
+          onClose={() => setShowSettingsModal(false)}
+          setOfficeLocation={setOfficeLocation}
+        />
+      )}
       {/* Notification Toast */}
       {notification && (
-        <div className="fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded shadow animate-fade-in-up z-50">
-          {notification}
-        </div>
+       <div 
+       className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded shadow z-50 animate-fade-in-up"
+     >
+       {notification}
+     </div>
       )}
     </div>
   );

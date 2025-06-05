@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { isInOfficeRadius } from '../utils/locationUtils';
 
-const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handleCheckOut }) => {
+const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handleCheckOut,officeLocation }) => {
   const lastCheckInRef = useRef(null);
   const lastCheckOutRef = useRef(null);
 
@@ -15,8 +15,7 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
     const successCallback = (position) => {
       const { latitude, longitude } = position.coords;
 
-      if (isInOfficeRadius(latitude, longitude)) {
-        alert('I have reached office');
+      if (isInOfficeRadius(latitude, longitude,officeLocation)) {
         const today = new Date().toDateString();
 
         if (!lastCheckInRef.current || lastCheckInRef.current !== today) {

@@ -1,8 +1,5 @@
-// src/utils/locationUtils.js
+import {OFFICE_LOCATION} from './geofence';
 
-/**
- * Calculate distance between two coordinates using Haversine formula
- */
 export function getDistanceFromOffice(lat1, lon1) {
     const { latitude: lat2, longitude: lon2 } = OFFICE_LOCATION;
   
@@ -17,6 +14,8 @@ export function getDistanceFromOffice(lat1, lon1) {
       Math.cos(φ1) * Math.cos(φ2) *
       Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    console.log('R:::::::',R);
+    console.log('c:::::::::',c);
   
     return R * c; // in meters
   }
@@ -24,7 +23,7 @@ export function getDistanceFromOffice(lat1, lon1) {
   /**
    * Check if current location is within office radius
    */
-  export function isInOfficeRadius(lat, lon) {
-    alert("Distance from office:", getDistanceFromOffice(lat, lon));
-    return getDistanceFromOffice(lat, lon) <= OFFICE_LOCATION.radiusMeters;
+  export function isInOfficeRadius(lat, lon, officeLocation) {
+    console.log("Distance from office:", getDistanceFromOffice(lat, lon, officeLocation));
+    return getDistanceFromOffice(lat, lon, officeLocation) <= officeLocation.radiusMeters;
   }

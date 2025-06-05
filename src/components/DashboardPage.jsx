@@ -3,9 +3,11 @@ import Calendar from "./icons/Calendar";
 import BarChart from "./icons/BarChart";
 import ChartIcon from "./icons/ChartIcon";
 import ExportIcon from "./icons/ExportIcon";
-import HistoryIcon from "./icons/HistoryIcon";
+import PieChartIcon from "./icons/PieChartIcon";
+import AutoCheckinIcon from "./icons/AutoCheckinIcon";
+import AttendanceHistoryIcon from "./icons/AttendanceHistoryIcon";
 
-const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled }) => {
+const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled,setShowSettingsModal,officeLocation }) => {
   return (
     <div className="p-4 max-w-md mx-auto">
       <button
@@ -21,24 +23,32 @@ const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendan
               ? localStorage.getItem("username").charAt(0).toUpperCase()
               : "U"}
           </div>
-          <div>
+          <div style={{width:'69%'}}>
             <h2 className="font-semibold text-base">
-              Welcome back,{" "}
               {localStorage.getItem("username") || "User"}!
             </h2>
             <p className="text-xs text-gray-500">Your attendance summary</p>
           </div>
+          <div>
+          <button 
+          onClick={() => {setShowSettingsModal(true)}}
+          className="p-2 rounded-full hover:bg-gray-200 focus:outline-none"
+          aria-label="Settings"
+            ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+        </button>
+    </div>
         </div>
         <h1 className="text-xl font-bold">Attendance Dashboard</h1>
+          {/* Settings Icon - Right Side */}
       </header>
 
     {/* Auto Attendance Toggle */}
 <div className="bg-white rounded-lg shadow p-4 mb-4 flex justify-between items-center">
   <div className="flex items-center space-x-3">
-    <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
+    <AutoCheckinIcon/>
     <span className="font-medium text-sm">Auto Attendance</span>
   </div>
   <label className="inline-flex items-center cursor-pointer">
@@ -76,14 +86,14 @@ const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendan
           onClick={() => setPage("chart")}
           className="bg-white rounded-lg shadow p-4 flex items-center space-x-3 cursor-pointer"
         >
-          <ChartIcon />
+          <PieChartIcon />
           <span className="font-medium text-sm">View Attendance Chart</span>
         </div>
         <div
           onClick={() => setPage("history")}
           className="bg-white rounded-lg shadow p-4 flex items-center space-x-3 cursor-pointer"
         >
-          <HistoryIcon />
+          <AttendanceHistoryIcon />
           <span className="font-medium text-sm">Attendance History</span>
         </div>
         <div
