@@ -47,7 +47,7 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, [isAutoAttendanceEnabled, handleCheckIn, handleCheckOut]);
+  }, [isAutoAttendanceEnabled, handleCheckIn, handleCheckOut,officeLocation]);
 };
 
 export default useGeolocationTracking;
