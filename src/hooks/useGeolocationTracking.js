@@ -1,11 +1,9 @@
-// src/hooks/useGeolocationTracking.js
-
 import { useEffect, useRef } from 'react';
 import { isInOfficeRadius } from '../utils/locationUtils';
 
-const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handleCheckOut,officeLocation }) => {
-  const lastCheckInRef = useRef(null);
-  const lastCheckOutRef = useRef(null);
+const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handleCheckOut, officeLocation }) => {
+  const lastCheckInDateRef = useRef(null);
+  const isInsideRef = useRef(false); // Track whether user is currently inside radius
 
   useEffect(() => {
     if (!isAutoAttendanceEnabled) return;
@@ -14,38 +12,39 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
 
     const successCallback = (position) => {
       const { latitude, longitude } = position.coords;
+      const isInRadius = isInOfficeRadius(latitude, longitude, officeLocation);
+      const today = new Date().toDateString();
 
-      if (isInOfficeRadius(latitude, longitude,officeLocation)) {
-        const today = new Date().toDateString();
-
-        if (!lastCheckInRef.current || lastCheckInRef.current !== today) {
-          handleCheckIn(); // Auto check-in
-          lastCheckInRef.current = today;
+      if (isInRadius) {
+        // Check-in only if not already done today
+        if (lastCheckInDateRef.current !== today) {
+          handleCheckIn();
+          lastCheckInDateRef.current = today;
         }
+        isInsideRef.current = true;
       } else {
-        const today = new Date().toDateString();
-        if (!lastCheckOutRef.current || lastCheckOutRef.current !== today) {
-          handleCheckOut(); // Auto check-out
-          lastCheckOutRef.current = today;
+        // Check-out when user goes out
+        if (isInsideRef.current) {
+          handleCheckOut();
+          isInsideRef.current = false;
         }
       }
     };
 
     const errorCallback = (error) => {
-      console.error("Geolocation error:", error.message);
+      console.error('Geolocation error:', error.message);
     };
 
-    // Start watching location
     watchId = navigator.geolocation.watchPosition(successCallback, errorCallback, {
       enableHighAccuracy: true,
       timeout: 10000,
-      maximumAge: 0
+      maximumAge: 0,
     });
 
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, [isAutoAttendanceEnabled, handleCheckIn, handleCheckOut]);
+  }, [isAutoAttendanceEnabled, handleCheckIn, handleCheckOut, officeLocation]);
 };
 
 export default useGeolocationTracking;
