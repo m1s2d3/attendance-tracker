@@ -336,6 +336,7 @@ const [officeLocation, setOfficeLocation] = useState(() => {
 
   // Auto Check-out Function
   const autoCheckOut = () => {
+        alert('inside auto checkout');
     const now = new Date();
     const day = now.getDate();
     const month = now.toLocaleString("default", { month: "short" });
