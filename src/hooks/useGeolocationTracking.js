@@ -23,10 +23,10 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
           lastCheckInRef.current = today;
         }
       } else {
-        alert('hello from no where')
+        //alert('hello from no where')
         const today = new Date().toDateString();
         if (!lastCheckOutRef.current || lastCheckOutRef.current !== today) {
-          alert('hello from no where 2')
+          //alert('hello from no where 2')
           handleCheckOut(); // Auto check-out
           lastCheckOutRef.current = today;
         }
