@@ -336,10 +336,10 @@ const [officeLocation, setOfficeLocation] = useState(() => {
 
   // Auto Check-out Function
   const autoCheckOut = () => {
-    const today = new Date().toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short"
-    });
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.toLocaleString("default", { month: "short" });
+    const today = `${day} ${month}`
 
     const recordIndex = attendanceHistory.findIndex(
       record => record.date === today
