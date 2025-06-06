@@ -7,13 +7,18 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['app-icon.png'],
+      includeAssets: ['app-icon.png','welcome.png'],
       manifest: {
         short_name: 'Presence',
         name: 'Presence',
         icons: [
           {
             "src": "app-icon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+          },
+          {
+            "src": "welcome.png",
             "type": "image/png",
             "sizes": "192x192"
           }
