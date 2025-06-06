@@ -148,7 +148,7 @@ const ExportModal = ({ setShowExportModal, attendanceHistory }) => {
           </div>
         </div>
 
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 p-2">
           <button
             onClick={exportToExcel}
             className="flex-1 bg-black text-white text-sm py-2 rounded"
