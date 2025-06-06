@@ -359,11 +359,11 @@ export default function App() {
         totalHours--;
         totalMinutes += 60;
       }
+      const formattedTotalHours = `${totalHours} hr${
+        totalHours !== 1 ? "s" : ""
+      } ${totalMinutes} min`;
 
-      updatedHistory[recordIndex].totalHours =
-        totalHours > 0
-          ? `${totalHours} hr${totalHours !== 1 ? "s" : ""} ${totalMinutes} min`
-          : "-";
+      updatedHistory[recordIndex].totalHours = formattedTotalHours
 
       // ✅ Fix: Update localStorage so changes persist after reload
       setAttendanceHistory(updatedHistory);
