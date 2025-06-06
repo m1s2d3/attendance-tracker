@@ -15,7 +15,7 @@ const getMonthData = (calendarMonth, calendarYear) => {
   }
   for (let i = 1; i <= daysInMonth; i++) {
     const isFutureDate = new Date(calendarYear, calendarMonth, i) > new Date();
-    const dateStr = `${i} ${shortMonth}`;
+    const dateStr = `${i} ${shortMonth} ${calendarYear}`;
     const hasAttendance = attendanceHistory.some(
       (record) => record.date === dateStr
     );
@@ -66,7 +66,7 @@ const MonthlyPage = ({
     }
     for (let i = 1; i <= daysInMonth; i++) {
       const isFutureDate = new Date(calendarYear, calendarMonth, i) > new Date();
-      const dateStr = `${i} ${shortMonth}`;
+      const dateStr = `${i} ${shortMonth} ${calendarYear}`;
       const hasAttendance = attendanceHistory.some(
         (record) => record.date === dateStr
       );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import LoginPage from "./components/LoginPage";
-import DashboardPage from "./components/DashboardPage";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 import MonthlyPage from "./components/MonthlyPage";
-import HistoryPage from "./components/HistoryPage";
-import ChartPage from "./components/ChartPage";
+import AttendanceHistory from "./components/AttendanceHistory";
+import AttendanceReport from "./components/AttendanceReport";
 import CalendarModal from "./components/modals/CalendarModal";
 import ExportModal from "./components/modals/ExportModal";
 import TimeModal from "./components/modals/TimeModal";
@@ -265,8 +265,9 @@ const [officeLocation, setOfficeLocation] = useState(() => {
       "default",
       { month: "short" }
     );
+    const monthYear = `${monthName} ${calendarYear}`
     const filtered = attendanceHistory.filter((record) =>
-      record.date.endsWith(monthName)
+      record.date.endsWith(monthYear)
     );
     const uniqueDates = new Set(filtered.map((record) => record.date.split(" ")[0]));
     return uniqueDates.size;
@@ -287,8 +288,10 @@ const [officeLocation, setOfficeLocation] = useState(() => {
     { month: "short" }
   );
 
+  const monthYear = `${currentMonthName} ${calendarYear}`
+
   const filteredHistory = attendanceHistory.filter((record) =>
-    record.date.endsWith(currentMonthName)
+    record.date.endsWith(monthYear)
   );
 
   const totalWorkingHoursThisMonth = filteredHistory
@@ -310,7 +313,8 @@ const [officeLocation, setOfficeLocation] = useState(() => {
     const now = new Date();
     const day = now.getDate();
     const month = now.toLocaleString("default", { month: "short" });
-    const today = `${day} ${month}`
+    const year = now.getFullYear();
+    const today = `${day} ${month} ${year}`
 
     const exists = attendanceHistory.some(record => record.date === today);
     if (!exists) {
@@ -340,7 +344,8 @@ const [officeLocation, setOfficeLocation] = useState(() => {
     const now = new Date();
     const day = now.getDate();
     const month = now.toLocaleString("default", { month: "short" });
-    const today = `${day} ${month}`
+    const year = now.getFullYear();
+    const today = `${day} ${month} ${year}`
 
     const recordIndex = attendanceHistory.findIndex(
       record => record.date === today
@@ -395,14 +400,14 @@ const [officeLocation, setOfficeLocation] = useState(() => {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">
       {/* Page Components */}
-      {page === "login" && <LoginPage 
+      {page === "login" && <Login 
         username={username} 
         setUsername={setUsername} 
         error={error} 
         handleLogin={handleLogin}
         setError={setError}
       />}
-      {page === "dashboard" && <DashboardPage 
+      {page === "dashboard" && <Dashboard 
         setPage={setPage}
         openCalendar={openCalendar}
         setShowExportModal={setShowExportModal}
@@ -424,14 +429,14 @@ const [officeLocation, setOfficeLocation] = useState(() => {
         setPage={setPage}
         handleDateClick={handleDateClick}
       />}
-      {page === "history" && <HistoryPage 
+      {page === "history" && <AttendanceHistory 
         attendanceHistory={attendanceHistory}
         editRecord={editRecord}
         confirmDeleteRecord={confirmDeleteRecord}
         handleCheckOut={handleCheckOut}
         setPage={setPage}
       />}
-      {page === "chart" && <ChartPage 
+      {page === "chart" && <AttendanceReport 
         calendarMonth={calendarMonth}
         calendarYear={calendarYear}
         attendanceHistory={attendanceHistory}

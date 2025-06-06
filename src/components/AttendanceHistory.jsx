@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
-const HistoryPage = ({ 
+const AttendanceHistory = ({ 
   attendanceHistory,
   editRecord,
   confirmDeleteRecord,
   handleCheckOut,
   setPage
 }) => {
+  const [selectedMonth, setSelectedMonth] = useState(null); // null means "All"
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  // Saare months ka long name
+  const monthNames = Array.from({ length: 12 }, (_, i) =>
+    new Date(0, i).toLocaleString("default", { month: "long" })
+  );
+
+  // Filtered history based on selected month and year
+  const filteredHistory = attendanceHistory.filter((record) => {
+    const recordDate = new Date(record.date);
+    if (selectedMonth === null) {
+      // Agar "All" hoon toh sirf year match karo
+      return recordDate.getFullYear() === selectedYear;
+    } else {
+      // Nahi toh month & year dono match karo
+      return (
+        recordDate.getMonth() === selectedMonth &&
+        recordDate.getFullYear() === selectedYear
+      );
+    }
+  });
+
   return (
     <div className="p-4 max-w-md mx-auto">
       <button
@@ -17,14 +40,53 @@ const HistoryPage = ({
       </button>
       <header className="mb-4">
         <h1 className="text-lg font-bold">Attendance History</h1>
+
+        {/* Month and Year Filter */}
+        <div className="mt-3 flex space-x-2">
+          <select
+            value={selectedMonth === null ? "all" : selectedMonth}
+            onChange={(e) => {
+              if (e.target.value === "all") {
+                setSelectedMonth(null); // All months
+              } else {
+                setSelectedMonth(parseInt(e.target.value));
+              }
+            }}
+            className="px-3 py-1 border rounded text-xs bg-white text-gray-700"
+          >
+            <option value="all">All Months</option>
+            {monthNames.map((name, index) => (
+              <option key={index} value={index}>
+                {name}
+              </option>
+            ))}
+          </select>
+
+          {/* Year Dropdown - Only Past 2 Years + Current Year */}
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+            className="px-3 py-1 border rounded text-xs bg-white text-gray-700"
+          >
+            {Array.from({ length: 3 }, (_, i) => {
+              const year = new Date().getFullYear() - 2 + i;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </header>
+
       <div
-        style={{ maxHeight: "40rem" }}
+        style={{ maxHeight: "32rem" }}
         className="bg-white rounded-lg shadow p-4 overflow-y-auto"
       >
         <ul className="space-y-2">
-          {attendanceHistory.length > 0 ? (
-            attendanceHistory.map((record, index) => (
+          {filteredHistory.length > 0 ? (
+            filteredHistory.map((record, index) => (
               <li
                 key={index}
                 className="flex flex-col bg-gray-100 rounded-md p-2 text-xs"
@@ -80,7 +142,7 @@ const HistoryPage = ({
             ))
           ) : (
             <p className="text-xs italic text-gray-500">
-              No attendance records found.
+              No attendance records found for this filter.
             </p>
           )}
         </ul>
@@ -89,4 +151,4 @@ const HistoryPage = ({
   );
 };
 
-export default HistoryPage;
+export default AttendanceHistory;

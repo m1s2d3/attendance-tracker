@@ -7,7 +7,7 @@ import PieChartIcon from "./icons/PieChartIcon";
 import AutoCheckinIcon from "./icons/AutoCheckinIcon";
 import AttendanceHistoryIcon from "./icons/AttendanceHistoryIcon";
 
-const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled,setShowSettingsModal,officeLocation }) => {
+const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled,setShowSettingsModal,officeLocation }) => {
   return (
     <div className="p-4 max-w-md mx-auto">
       <button
@@ -108,4 +108,4 @@ const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendan
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

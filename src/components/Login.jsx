@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoginPage = ({ username, setUsername, error, handleLogin ,setError}) => {
+const Login = ({ username, setUsername, error, handleLogin ,setError}) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8">
       <div className="text-gray-800 mb-6 text-center">
@@ -52,4 +52,4 @@ const LoginPage = ({ username, setUsername, error, handleLogin ,setError}) => {
   );
 };
 
-export default LoginPage;
+export default Login;
