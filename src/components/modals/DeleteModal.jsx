@@ -11,7 +11,7 @@ const DeleteModal = ({ setShowDeleteModal, deleteRecord }) => {
         <div className="flex justify-end space-x-2">
           <button
             onClick={() => setShowDeleteModal(false)}
-            className="text-xs text-gray-500"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm py-2 px-4 rounded"
           >
             Cancel
           </button>

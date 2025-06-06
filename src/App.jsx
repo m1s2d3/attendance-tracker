@@ -54,6 +54,7 @@ export default function App() {
       radiusMeters: savedRadius ? parseInt(savedRadius) : 500
     };
   });
+  
 
   // Save auto attendance state to localStorage
   useEffect(() => {
@@ -115,7 +116,7 @@ export default function App() {
     );
     if (isDuplicate) {
       setShowDuplicate(true);
-      closeCalendar();
+      //closeCalendar();
       return;
     }
     const now = new Date();

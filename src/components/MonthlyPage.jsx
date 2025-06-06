@@ -74,7 +74,6 @@ const MonthlyPage = ({
         <button
           key={i}
           disabled={!hasAttendance || isFutureDate}
-          onClick={() => !isFutureDate && handleDateClick(dateStr)}
           className={`w-full aspect-square flex items-center justify-center rounded-full text-sm ${
             isFutureDate
               ? "text-gray-300 cursor-not-allowed"

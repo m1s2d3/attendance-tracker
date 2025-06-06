@@ -38,13 +38,13 @@ const TimeModal = ({
         <div className="flex justify-end space-x-2 mt-4">
           <button
             onClick={() => setShowTimeModal(false)}
-            className="text-xs text-gray-500"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm py-2 px-4 rounded"
           >
             Cancel
           </button>
           <button
             onClick={saveTime}
-            className="px-3 py-1 bg-black text-white rounded text-sm"
+            className="bg-black text-white text-sm py-2 px-4 rounded"
           >
             Save
           </button>

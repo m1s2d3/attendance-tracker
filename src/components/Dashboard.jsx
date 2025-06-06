@@ -8,6 +8,7 @@ import AutoCheckinIcon from "./icons/AutoCheckinIcon";
 import AttendanceHistoryIcon from "./icons/AttendanceHistoryIcon";
 
 const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled,setShowSettingsModal,officeLocation }) => {
+  const isLocationSet = officeLocation.latitude && officeLocation.longitude && officeLocation.radiusMeters;
   return (
     <div className="p-4 max-w-md mx-auto">
       <button
@@ -55,7 +56,16 @@ const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEn
     <input
       type="checkbox"
       checked={autoAttendanceEnabled}
-      onChange={(e) => setAutoAttendanceEnabled(e.target.checked)}
+      disabled={!isLocationSet}
+      onChange={(e) => {
+        if (!isLocationSet){
+          alert('Please set your office location from settings icon to enable this feature.');
+          return;
+        }else{
+          setAutoAttendanceEnabled(!autoAttendanceEnabled);
+        }
+       
+      }}
       className="sr-only peer"
     />
     <div className={`relative w-11 h-6 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ${

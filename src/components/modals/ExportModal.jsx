@@ -122,7 +122,7 @@ const ExportModal = ({ setShowExportModal, attendanceHistory }) => {
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="w-full border rounded px-2 py-1 text-sm"
+              className="w-full border rounded px-2 py-2 text-md"
             >
               {months.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -137,7 +137,7 @@ const ExportModal = ({ setShowExportModal, attendanceHistory }) => {
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(Number(e.target.value))}
-              className="w-full border rounded px-2 py-1 text-sm"
+              className="w-full border rounded px-2 py-2 text-md"
             >
               {years.map((y) => (
                 <option key={y} value={y}>
