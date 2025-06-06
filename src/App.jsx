@@ -49,9 +49,9 @@ export default function App() {
     const savedLng = localStorage.getItem("officeLng");
     const savedRadius = localStorage.getItem("officeRadius");
     return {
-      latitude: savedLat ? parseFloat(savedLat) : 28.6734,
-      longitude: savedLng ? parseFloat(savedLng) : 77.4147,
-      radiusMeters: savedRadius ? parseInt(savedRadius) : 500
+      latitude: savedLat ? parseFloat(savedLat) : '',
+      longitude: savedLng ? parseFloat(savedLng) : '',
+      radiusMeters: savedRadius ? parseInt(savedRadius) : ''
     };
   });
   
