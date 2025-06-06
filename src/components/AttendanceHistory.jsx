@@ -15,23 +15,28 @@ const AttendanceHistory = ({
     new Date(0, i).toLocaleString("default", { month: "long" })
   );
 
-  // Filtered history with original index
-  const filteredHistory = attendanceHistory
-    .map((record, index) => ({
-      ...record,
-      originalIndex: index,
-    }))
-    .filter((record) => {
-      const recordDate = new Date(record.date);
-      if (selectedMonth === null) {
-        return recordDate.getFullYear() === selectedYear;
-      } else {
-        return (
-          recordDate.getMonth() === selectedMonth &&
-          recordDate.getFullYear() === selectedYear
-        );
-      }
-    });
+// Filtered and sorted history with original index
+const filteredHistory = attendanceHistory
+  .map((record, index) => ({
+    ...record,
+    originalIndex: index,
+  }))
+  .filter((record) => {
+    const recordDate = new Date(record.date);
+    if (selectedMonth === null) {
+      return recordDate.getFullYear() === selectedYear;
+    } else {
+      return (
+        recordDate.getMonth() === selectedMonth &&
+        recordDate.getFullYear() === selectedYear
+      );
+    }
+  })
+  .sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB - dateA; // Descending order (latest first)
+  });
 
   return (
     <div className="p-4 max-w-md mx-auto">
