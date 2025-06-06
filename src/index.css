@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.no-overscroll {
+    overscroll-behavior: none;
+  }
+
+  /* index.css or App.css */
+* {
+    overscroll-behavior: none;
+  }
+  
+  html,
+  body {
+    overscroll-behavior: none;
+    background-color:  rgb(53 53 52);
+  }
+
+  .bg-login {
+    background-color: rgb(53 53 52);
+  }
+  

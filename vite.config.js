@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['app-icon.png'],
       manifest: {
-        short_name: 'AttendanceTracker',
-        name: 'Attendance Tracker',
+        short_name: 'Presence',
+        name: 'Presence',
         icons: [
           {
             "src": "app-icon.png",
@@ -20,8 +20,6 @@ export default defineConfig({
         ],
         start_url: '.',
         display: 'standalone',
-        theme_color: '#4f46e5',
-        background_color: '#ffffff',
       },
     }),
   ],
