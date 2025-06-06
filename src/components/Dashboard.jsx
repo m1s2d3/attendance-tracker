@@ -60,7 +60,7 @@ const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEn
     />
     <div className={`relative w-11 h-6 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ${
       autoAttendanceEnabled 
-        ? "bg-blue-500 after:border-blue-500" 
+        ? "bg-black after:bg-black-500" 
         : "bg-gray-200 after:border-gray-300"
     }`}></div>
   </label>

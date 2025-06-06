@@ -35,7 +35,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow w-72 max-w-md p-4 animate-fade-in-up">
+      <div className="bg-white rounded-lg shadow w-80 max-w-md p-4 animate-fade-in-up">
         <h2 className="text-lg font-bold mb-4">Set Office Location</h2>
 
         <div className="space-y-3">
