@@ -15,20 +15,23 @@ const AttendanceHistory = ({
     new Date(0, i).toLocaleString("default", { month: "long" })
   );
 
-  // Filtered history based on selected month and year
-  const filteredHistory = attendanceHistory.filter((record) => {
-    const recordDate = new Date(record.date);
-    if (selectedMonth === null) {
-      // Agar "All" hoon toh sirf year match karo
-      return recordDate.getFullYear() === selectedYear;
-    } else {
-      // Nahi toh month & year dono match karo
-      return (
-        recordDate.getMonth() === selectedMonth &&
-        recordDate.getFullYear() === selectedYear
-      );
-    }
-  });
+  // Filtered history with original index
+  const filteredHistory = attendanceHistory
+    .map((record, index) => ({
+      ...record,
+      originalIndex: index,
+    }))
+    .filter((record) => {
+      const recordDate = new Date(record.date);
+      if (selectedMonth === null) {
+        return recordDate.getFullYear() === selectedYear;
+      } else {
+        return (
+          recordDate.getMonth() === selectedMonth &&
+          recordDate.getFullYear() === selectedYear
+        );
+      }
+    });
 
   return (
     <div className="p-4 max-w-md mx-auto">
@@ -62,7 +65,7 @@ const AttendanceHistory = ({
             ))}
           </select>
 
-          {/* Year Dropdown - Only Past 2 Years + Current Year */}
+          {/* Year Dropdown - Past 2 Years + Current Year */}
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
@@ -81,14 +84,14 @@ const AttendanceHistory = ({
       </header>
 
       <div
-        style={{ maxHeight: "32rem" }}
+        style={{ maxHeight: "38rem" }}
         className="bg-white rounded-lg shadow p-4 overflow-y-auto"
       >
         <ul className="space-y-2">
           {filteredHistory.length > 0 ? (
-            filteredHistory.map((record, index) => (
+            filteredHistory.map((record) => (
               <li
-                key={index}
+                key={record.originalIndex}
                 className="flex flex-col bg-gray-100 rounded-md p-2 text-xs"
               >
                 <p className="font-medium">{record.date}</p>
@@ -108,7 +111,7 @@ const AttendanceHistory = ({
                   <div className="flex space-x-1">
                     {record.checkIn !== "-" && (
                       <button
-                        onClick={() => editRecord(index, "checkIn")}
+                        onClick={() => editRecord(record.originalIndex, "checkIn")}
                         className="px-2 py-1 bg-blue-500 text-white text-xs rounded"
                       >
                         Edit In
@@ -116,21 +119,21 @@ const AttendanceHistory = ({
                     )}
                     {record.checkOut !== "-" && (
                       <button
-                        onClick={() => editRecord(index, "checkOut")}
+                        onClick={() => editRecord(record.originalIndex, "checkOut")}
                         className="px-2 py-1 bg-green-500 text-white text-xs rounded"
                       >
                         Edit Out
                       </button>
                     )}
                     <button
-                      onClick={() => confirmDeleteRecord(index)}
+                      onClick={() => confirmDeleteRecord(record.originalIndex)}
                       className="px-2 py-1 bg-red-500 text-white text-xs rounded"
                     >
                       Delete
                     </button>
                     {record.checkOut === "-" && (
                       <button
-                        onClick={() => handleCheckOut(index)}
+                        onClick={() => handleCheckOut(record.originalIndex)}
                         className="px-2 py-1 bg-black text-white text-xs rounded"
                       >
                         Check Out Now
