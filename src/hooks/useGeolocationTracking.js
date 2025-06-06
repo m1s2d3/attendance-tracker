@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { isInOfficeRadius } from '../utils/locationUtils';
 
-const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handleCheckOut,officeLocation }) => {
+const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleAutoCheckIn, handleAutoCheckOut,officeLocation }) => {
   const lastCheckInRef = useRef(null);
   const lastCheckOutRef = useRef(null);
 
@@ -19,15 +19,13 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
         const today = new Date().toDateString();
 
         if (!lastCheckInRef.current || lastCheckInRef.current !== today) {
-          handleCheckIn(); // Auto check-in
+          handleAutoCheckIn(); //Auto check-in
           lastCheckInRef.current = today;
         }
       } else {
-        //alert('hello from no where')
         const today = new Date().toDateString();
         if (!lastCheckOutRef.current || lastCheckOutRef.current !== today) {
-          //alert('hello from no where 2')
-          handleCheckOut(); // Auto check-out
+          handleAutoCheckOut(); // Auto check-out
           lastCheckOutRef.current = today;
         }
       }
@@ -47,7 +45,7 @@ const useGeolocationTracking = ({ isAutoAttendanceEnabled, handleCheckIn, handle
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, [isAutoAttendanceEnabled, handleCheckIn, handleCheckOut,officeLocation]);
-};
+  }, [isAutoAttendanceEnabled, handleAutoCheckIn, handleAutoCheckOut, officeLocation]);
+}; 
 
 export default useGeolocationTracking;

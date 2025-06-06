@@ -35,7 +35,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow w-full max-w-md p-4 animate-fade-in-up">
+      <div className="bg-white rounded-lg shadow w-72 max-w-md p-4 animate-fade-in-up">
         <h2 className="text-lg font-bold mb-4">Set Office Location</h2>
 
         <div className="space-y-3">
@@ -45,7 +45,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
               type="text"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
-              placeholder="E.g. 28.6734"
+              placeholder="E.g. 28.4593 (Huda Metro Station)"
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
           </div>
@@ -55,7 +55,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
               type="text"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
-              placeholder="E.g. 77.4147"
+              placeholder="E.g. 77.0727 (Huda Metro Station)"
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
           </div>

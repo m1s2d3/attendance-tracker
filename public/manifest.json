@@ -1,6 +1,6 @@
 {
-  "short_name": "AttendanceTracker",
-  "name": "Attendance Tracker",
+  "short_name": "Presence",
+  "name": "Presence",
   "icons": [
     {
       "src": "app-icon.png",

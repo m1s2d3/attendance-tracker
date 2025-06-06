@@ -1,5 +1,5 @@
 {
-  "name": "attendance-tracker",
+  "name": "presence",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.1.2",
-    "async-storage": "^0.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-native": "^0.79.2",

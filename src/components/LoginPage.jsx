@@ -4,7 +4,7 @@ const LoginPage = ({ username, setUsername, error, handleLogin ,setError}) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8">
       <div className="text-gray-800 mb-6 text-center">
-        <h1 className="text-4xl font-bold mb-2">PRESENCE</h1>
+        <h1 style={{    fontSize: '52px'}} className="text-4xl font-bold mb-2">PRESENCE</h1>
         <p className="text-md">Track your daily attendance records.</p>
       </div>
       <div style={{ width: '17rem',height: '20rem' }}>

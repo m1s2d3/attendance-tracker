@@ -306,7 +306,7 @@ const [officeLocation, setOfficeLocation] = useState(() => {
   const pmPunchCount = filteredHistory.length - amPunchCount;
 
   // Auto Check-in Function
-  const handleCheckIn = () => {
+  const handleAutoCheckIn = () => {
     const now = new Date();
     const day = now.getDate();
     const month = now.toLocaleString("default", { month: "short" });
@@ -335,7 +335,7 @@ const [officeLocation, setOfficeLocation] = useState(() => {
   };
 
   // Auto Check-out Function
-  const autoCheckOut = () => {
+  const handleAutoCheckOut = () => {
         //alert('inside auto checkout');
     const now = new Date();
     const day = now.getDate();
@@ -386,9 +386,9 @@ const [officeLocation, setOfficeLocation] = useState(() => {
 
   // Use geolocation tracking
   useGeolocationTracking({
-    isAutoAttendanceEnabled: autoAttendanceEnabled && page === "dashboard",
-    handleCheckIn,
-    handleCheckOut: autoCheckOut,
+    isAutoAttendanceEnabled: autoAttendanceEnabled,
+    handleAutoCheckIn,
+    handleAutoCheckOut,
     officeLocation
   });
 

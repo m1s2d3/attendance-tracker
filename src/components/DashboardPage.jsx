@@ -80,14 +80,14 @@ const DashboardPage = ({ setPage, openCalendar, setShowExportModal, autoAttendan
           className="bg-white rounded-lg shadow p-4 flex items-center space-x-3 cursor-pointer"
         >
           <ChartIcon />
-          <span className="font-medium text-sm">View Monthly Calendar</span>
+          <span className="font-medium text-sm">Monthly Attendance</span>
         </div>
         <div
           onClick={() => setPage("chart")}
           className="bg-white rounded-lg shadow p-4 flex items-center space-x-3 cursor-pointer"
         >
           <PieChartIcon />
-          <span className="font-medium text-sm">View Attendance Chart</span>
+          <span className="font-medium text-sm">Attendance Report</span>
         </div>
         <div
           onClick={() => setPage("history")}

@@ -16,7 +16,7 @@ const HistoryPage = ({
         ← Back
       </button>
       <header className="mb-4">
-        <h1 className="text-lg font-bold">Full Attendance History</h1>
+        <h1 className="text-lg font-bold">Attendance History</h1>
       </header>
       <div
         style={{ maxHeight: "40rem" }}
