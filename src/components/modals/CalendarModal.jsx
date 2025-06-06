@@ -21,7 +21,7 @@ const CalendarModal = ({
   }
   for (let i = 1; i <= daysInMonth; i++) {
     const isFutureDate = new Date(year, month, i) > new Date();
-    const dateStr = `${i} ${shortMonth}`;
+    const dateStr = `${i} ${shortMonth} ${year}`;
     const hasAttendance = attendanceHistory.some(
       (record) => record.date === dateStr
     );

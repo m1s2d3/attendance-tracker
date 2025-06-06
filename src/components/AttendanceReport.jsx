@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { parseTime } from "../utils/timeUtils";
 
-const ChartPage = ({ 
+const AttendanceReport = ({ 
   calendarMonth, 
   calendarYear,
   attendanceHistory,
@@ -13,37 +13,41 @@ const ChartPage = ({
   const [selectedMonth, setSelectedMonth] = useState(calendarMonth);
   const [selectedYear, setSelectedYear] = useState(calendarYear);
 
-  // Saare months ke names
+  // Saare months ke names (long format)
   const monthNames = Array.from({ length: 12 }, (_, i) =>
     new Date(0, i).toLocaleString("default", { month: "long" })
   );
 
-  // Selected month ke hisab se filtered history
+  // Selected month ka short month name (e.g. "Jun")
   const currentMonthName = new Date(selectedYear, selectedMonth).toLocaleString(
     "default",
     { month: "short" }
   );
 
+  // Filter attendance by matching "Month Year" in date string, e.g. "Jun 2025"
   const filteredHistory = attendanceHistory.filter((record) =>
-    record.date.endsWith(currentMonthName)
+    record.date.includes(`${currentMonthName} ${selectedYear}`)
   );
 
+  // Total unique attendance days for selected month
   const getTotalAttendanceDaysForSelectedMonth = () => {
     const uniqueDates = new Set(filteredHistory.map((record) => record.date.split(" ")[0]));
     return uniqueDates.size;
   };
 
+  // Total AM punches (checkIn hour < 12)
   const totalAmPunches = filteredHistory.reduce((count, r) => {
     const [inHr] = parseTime(r.checkIn);
     return count + (inHr < 12 ? 1 : 0);
   }, 0);
 
+  // Total PM punches (checkIn hour >= 12)
   const totalPmPunches = filteredHistory.reduce((count, r) => {
     const [inHr] = parseTime(r.checkIn);
     return count + (inHr >= 12 ? 1 : 0);
   }, 0);
 
-  // Calculate total hours worked
+  // Calculate total hours worked (ignore if totalHours === "-")
   const totalHoursWorked = filteredHistory
     .filter(r => r.totalHours !== "-")
     .reduce((sum, r) => {
@@ -51,7 +55,7 @@ const ChartPage = ({
       return sum + hours;
     }, 0);
 
-  // Calculate daily average
+  // Average daily hours
   const avgDailyHours = filteredHistory.length > 0 ? (totalHoursWorked / filteredHistory.length).toFixed(1) : 0;
 
   return (
@@ -85,7 +89,7 @@ const ChartPage = ({
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
             className="px-3 py-1 border rounded text-xs bg-white text-gray-700"
           >
-            {[calendarYear - 1, calendarYear, calendarYear + 1].map((yr) => (
+            {[calendarYear - 2,calendarYear -1, calendarYear].map((yr) => (
               <option key={yr} value={yr}>
                 {yr}
               </option>
@@ -168,7 +172,8 @@ const ChartPage = ({
 
               // Generate heatmap cells
               for (let i = 1; i <= daysInMonth; i++) {
-                const dateStr = `${i} ${currentMonthName.slice(0, 3)}`;
+                // date format "5 Jun 2025"
+                const dateStr = `${i} ${currentMonthName} ${selectedYear}`;
                 const hasAttendance = attendanceHistory.some(
                   (r) => r.date === dateStr
                 );
@@ -195,4 +200,4 @@ const ChartPage = ({
   );
 };
 
-export default ChartPage;
+export default AttendanceReport;
