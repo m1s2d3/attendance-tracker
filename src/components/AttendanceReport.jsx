@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { parseTime } from "../utils/timeUtils";
+import BackArrowIcon from "./icons/BackArrowIcon";
 
 const AttendanceReport = ({ 
   calendarMonth, 
@@ -66,7 +67,7 @@ const AttendanceReport = ({
           onClick={() => setPage("dashboard")}
           className="mb-4 text-black text-sm flex items-center"
         >
-          ← Back
+          <span><BackArrowIcon/></span><span>Back</span>
         </button>
 
         <h1 className="text-xl font-bold mb-2">Attendance Report</h1>

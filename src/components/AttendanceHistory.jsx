@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BackArrowIcon from "./icons/BackArrowIcon";
 
 const AttendanceHistory = ({ 
   attendanceHistory,
@@ -44,7 +45,7 @@ const filteredHistory = attendanceHistory
         onClick={() => setPage("dashboard")}
         className="mb-4 text-black text-sm flex items-center"
       >
-        ← Back
+       <span><BackArrowIcon/></span><span>Back</span>
       </button>
       <header className="mb-4">
         <h1 className="text-lg font-bold">Attendance History</h1>

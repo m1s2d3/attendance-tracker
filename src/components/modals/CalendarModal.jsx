@@ -1,4 +1,7 @@
 import React from "react";
+import BackArrowIcon from "../icons/BackArrowIcon";
+import ForwardArrowIcon from "../icons/ForwardArrowIcon";
+
 
 const CalendarModal = ({ 
   month, 
@@ -60,7 +63,7 @@ const CalendarModal = ({
             onClick={goToPreviousMonth}
             className="px-2 text-sm"
           >
-            ←
+          <span><BackArrowIcon/></span>
           </button>
           <span className="mx-2 text-sm font-medium">
             {monthName}, {year}
@@ -69,7 +72,7 @@ const CalendarModal = ({
             onClick={goToNextMonth}
             className="px-2 text-sm"
           >
-            →
+          <span><ForwardArrowIcon/></span>
           </button>
         </div>
         <div className="grid grid-cols-7 gap-1 text-xs text-center">

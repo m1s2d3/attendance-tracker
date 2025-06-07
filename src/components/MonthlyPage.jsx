@@ -1,5 +1,7 @@
 import React from "react";
 import { parseTime } from "../utils/timeUtils";
+import BackArrowIcon from "./icons/BackArrowIcon";
+import ForwardArrowIcon from "./icons/ForwardArrowIcon";
 
 const getMonthData = (calendarMonth, calendarYear) => {
   const monthName = new Date(calendarYear, calendarMonth).toLocaleString(
@@ -95,7 +97,7 @@ const MonthlyPage = ({
         onClick={() => setPage("dashboard")}
         className="mb-4 text-black text-sm flex items-center"
       >
-        ← Back
+        <span><BackArrowIcon/></span><span>Back</span>
       </button>
       <header className="mb-4">
         <h1 className="text-lg font-bold">Monthly Attendance</h1>
@@ -106,13 +108,13 @@ const MonthlyPage = ({
       {/* Calendar Navigation */}
       <div className="flex justify-between items-center mb-2">
         <button onClick={goToPreviousMonth} className="p-1 text-sm">
-          ←
+        <span><BackArrowIcon/></span>
         </button>
         <h2 className="text-sm font-medium">
           {getMonthData().monthName}, {calendarYear}
         </h2>
         <button onClick={goToNextMonth} className="p-1 text-sm">
-          →
+        <span><ForwardArrowIcon/></span>
         </button>
       </div>
       {/* Calendar Grid */}

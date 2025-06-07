@@ -1,11 +1,11 @@
 import React from "react";
 import Calendar from "./icons/Calendar";
-import BarChart from "./icons/BarChart";
 import ChartIcon from "./icons/ChartIcon";
 import ExportIcon from "./icons/ExportIcon";
 import PieChartIcon from "./icons/PieChartIcon";
 import AutoCheckinIcon from "./icons/AutoCheckinIcon";
 import AttendanceHistoryIcon from "./icons/AttendanceHistoryIcon";
+import BackArrowIcon from "./icons/BackArrowIcon";
 
 const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEnabled, setAutoAttendanceEnabled,setShowSettingsModal,officeLocation }) => {
   const isLocationSet = officeLocation.latitude && officeLocation.longitude && officeLocation.radiusMeters;
@@ -15,7 +15,7 @@ const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEn
         onClick={() => setPage("login")}
         className="mb-4 text-black text-sm flex items-center"
       >
-        ← Back
+        <span><BackArrowIcon/></span><span>Back</span>
       </button>
       <header className="mb-4">
         <div className="flex items-center space-x-3 mb-4">
