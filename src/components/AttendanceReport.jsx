@@ -100,7 +100,7 @@ const AttendanceReport = ({
       </header>
 
       {/* Scrollable Cards Section */}
-      <main className="flex-1 overflow-y-auto px-4">
+      <main className="flex-1 overflow-y-auto p-4">
         {/* Stats Summary Card */}
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-lg shadow mb-4">
           <h2 className="text-sm font-medium mb-2">📈 Monthly Summary Of {new Date(selectedYear, selectedMonth).toLocaleString("default", { month: "long" })}</h2>
