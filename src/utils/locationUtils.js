@@ -1,7 +1,5 @@
-import {OFFICE_LOCATION} from './geofence';
-
-export function getDistanceFromOffice(lat1, lon1) {
-    const { latitude: lat2, longitude: lon2 } = OFFICE_LOCATION;
+export function getDistanceFromOffice(lat1, lon1, officeLocation) {
+    const { latitude: lat2, longitude: lon2 } = officeLocation;
   
     const R = 6371e3; // Earth’s radius in meters
     const φ1 = (lat1 * Math.PI) / 180;
@@ -24,6 +22,5 @@ export function getDistanceFromOffice(lat1, lon1) {
    * Check if current location is within office radius
    */
   export function isInOfficeRadius(lat, lon, officeLocation) {
-    console.log("Distance from office:", getDistanceFromOffice(lat, lon, officeLocation));
     return getDistanceFromOffice(lat, lon, officeLocation) <= officeLocation.radiusMeters;
   }

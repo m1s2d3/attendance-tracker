@@ -45,7 +45,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
               type="text"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
-              placeholder="E.g. 28.4593 (Huda Metro Station)"
+              placeholder="E.g. 28.459269 (Huda Metro Station)"
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
           </div>
@@ -55,7 +55,7 @@ const SettingsModal = ({ onClose, setOfficeLocation }) => {
               type="text"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
-              placeholder="E.g. 77.0727 (Huda Metro Station)"
+              placeholder="E.g. 77.072419 (Huda Metro Station)"
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
           </div>

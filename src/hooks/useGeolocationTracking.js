@@ -1,5 +1,3 @@
-// src/hooks/useGeolocationTracking.js
-
 import { useEffect, useRef } from 'react';
 import { isInOfficeRadius } from '../utils/locationUtils';
 
