@@ -100,9 +100,9 @@ const AttendanceReport = ({
       </header>
 
       {/* Scrollable Cards Section */}
-      <main className="flex-1 overflow-y-auto p-4">
+      <main className="flex-1 overflow-y-auto px-4">
         {/* Stats Summary Card */}
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-lg shadow mb-6">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-lg shadow mb-4">
           <h2 className="text-sm font-medium mb-2">📈 Monthly Summary Of {new Date(selectedYear, selectedMonth).toLocaleString("default", { month: "long" })}</h2>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div>
@@ -117,7 +117,7 @@ const AttendanceReport = ({
         </div>
 
         {/* Monthly Progress Ring */}
-        <div className="bg-white rounded-lg shadow p-6 flex flex-col items-center mb-6">
+        <div className="bg-white rounded-lg shadow p-4 flex flex-col items-center mb-4">
           <h2 className="text-sm font-medium mb-3">Monthly Progress</h2>
           <div className="relative w-32 h-32">
             <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -155,7 +155,7 @@ const AttendanceReport = ({
         </div>
 
         {/* Attendance Heatmap */}
-        <div className="bg-white rounded-lg shadow p-4 mb-6">
+        <div className="bg-white rounded-lg shadow p-4 mb-4">
           <h2 className="text-sm font-medium mb-3">🔥 Attendance Heatmap</h2>
           <div className="grid grid-cols-7 gap-1 text-xs text-center">
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
