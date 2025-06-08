@@ -58,7 +58,7 @@ const Dashboard = ({ setPage, openCalendar, setShowExportModal, autoAttendanceEn
       checked={autoAttendanceEnabled}
       onChange={(e) => {
         if (!isLocationSet){
-          alert('Please set your office location from settings icon to enable this feature.');
+          alert('To use this feature, please set your office location first by clicking the settings icon.');
           return;
         }else{
           setAutoAttendanceEnabled(!autoAttendanceEnabled);
